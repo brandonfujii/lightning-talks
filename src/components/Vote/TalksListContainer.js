@@ -69,11 +69,9 @@ const TalksListContainer = React.createClass({
     }
   },
 
-  // When a sort filter is clicked on the DOM, retrieve its sort type
+  // Given a sort type, update the current sort
   // and apply the appropriate sort
-  onSelectSort(e) {
-    const currentNode = e.target;
-    const sortType = currentNode.getAttribute('data-sort');
+  onSelectSort(sortType) {
     this.setState({ currentSort: sortType });
     this.applySortByType(sortType, this.props.talks);
   },
@@ -117,8 +115,8 @@ const TalksListContainer = React.createClass({
         <div className="sort-filters">
           Sort by:
           <ul>
-            <li data-sort="popular" onClick={this.onSelectSort}>Most Popular</li>
-            <li data-sort="recent" onClick={this.onSelectSort}>Most Recent</li>
+            <li data-sort="popular" onClick={ (event) => { this.onSelectSort(event.target.getAttribute('data-sort')) } }>Most Popular</li>
+            <li data-sort="recent" onClick={ (event) => { this.onSelectSort(event.target.getAttribute('data-sort')) } }>Most Recent</li>
           </ul>
         </div>
         <TalksList searchedTalks={searchedTalks} {...this.props} />
